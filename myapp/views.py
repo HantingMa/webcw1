@@ -119,6 +119,6 @@ class LoginView(APIView):
 
         if user is not None:
             login(request, user)
-            return Response(f"Welcome, {username}!", status=status.HTTP_200_OK, content_type='text/plain')
+            return Response(f"Welcome, {username}!", status=status.HTTP_200_OK)
         else:
-            return Response("Login failed. Check username and password.", status=status.HTTP_401_UNAUTHORIZED, content_type='text/plain')
+            return Response("Login failed. Check username and password.", status=status.HTTP_401_UNAUTHORIZED)

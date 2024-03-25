@@ -4,6 +4,7 @@ from rest_framework import status
 from django.contrib.auth.models import User
 from .models import NewsStory, Author
 
+
 class MyAppTests(APITestCase):
 
     def setUp(self):
@@ -38,4 +39,17 @@ class MyAppTests(APITestCase):
         response = self.client.delete(reverse('delete_story', kwargs={'id': self.news_story.id}))
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(NewsStory.objects.count(), 0)
+    
+
+
+class AuthenticationTest(APITestCase):
+    def setUp(self):
+        self.login_url = reverse('login_api')
+        self.user = User.objects.create_user(username='testuser', password='testpassword')
+
+    def test_login_success(self):
+        response = self.client.post(self.login_url, {'username': 'hanting', 'password': '86109113Mht'})
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("Welcome", response.content.decode())
+
 
