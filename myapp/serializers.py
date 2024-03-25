@@ -14,8 +14,3 @@ class PostSerializer(serializers.ModelSerializer):
     class Meta:
         model = Post
         fields = '__all__'
-
-#class AgencySerializer(serializers.ModelSerializer):
-#    class Meta:
-#        model = Agency
-#        fields = ['agency_name', 'url', 'agency_code']

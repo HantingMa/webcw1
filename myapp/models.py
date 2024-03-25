@@ -35,13 +35,6 @@ class Author(AbstractBaseUser):
     def __str__(self):
         return self.name
     
-#class Agency(models.Model):
-#    agency_name = models.CharField(max_length=255)
-#    url = models.URLField()
-#    agency_code = models.CharField(max_length=10)
-
-
-# Define the News Story Model
     
 class NewsStory(models.Model):
     CATEGORY_CHOICES = [
