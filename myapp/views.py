@@ -36,7 +36,6 @@ class LogoutView(APIView):
 # new story
 class NewsStoryList(APIView):
     def handle(self, request, format=None):
-        # Handling GET requests
         if request.method == "GET":
             category = request.query_params.get('story_cat', '*')
             region = request.query_params.get('story_region', '*')
