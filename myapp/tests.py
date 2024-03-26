@@ -25,38 +25,31 @@ class APITests(APITestCase):
         """
         测试用户登录。
         """
-        url = reverse('login')  # 假设您的登录视图的 URL 名称为 'login'
+        url = reverse('login')
         data = {'username': 'testuser', 'password': 'testpassword'}
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue('Welcome, testuser!' in response.data)
 
     def test_logout(self):
-        """
-        测试用户登出。
-        """
-        # 首先登录
+
         self.client.login(username='testuser', password='testpassword')
-        url = reverse('logout')  # 假设您的登出视图的 URL 名称为 'logout'
+        url = reverse('logout') 
         response = self.client.post(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue("Successfully logged out." in response.data)
 
     def test_create_story_authenticated(self):
-        """
-        测试认证用户创建新闻故事。
-        """
-        self.client.force_authenticate(user=self.user)  # 认证用户
-        url = reverse('newsstory-list')  # 假设您的新闻故事列表视图的 URL 名称为 'newsstory-list'
+
+        self.client.force_authenticate(user=self.user)
+        url = reverse('newsstory-list') 
         data = {'headline': 'New Story', 'category': 'tech', 'region': 'uk', 'details': 'Details of the new story', 'author': self.author.id}
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(NewsStory.objects.count(), 2)  # 假设之前已经有一条故事
+        self.assertEqual(NewsStory.objects.count(), 2) 
 
     def test_delete_story_unauthenticated(self):
-        """
-        测试未认证用户尝试删除新闻故事。
-        """
-        url = reverse('newsstory-detail', kwargs={'pk': self.story.pk})  # 假设您的新闻故事详情视图的 URL 名称为 'newsstory-detail'
+
+        url = reverse('newsstory-detail', kwargs={'pk': self.story.pk}) 
         response = self.client.delete(url)
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
